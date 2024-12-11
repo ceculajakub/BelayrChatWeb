@@ -1,0 +1,74 @@
+<div class="container mt-5">
+
+    <div class="chat_header mb-3">
+        <img src="https://files.logomakr.com/5MnAz8-LogoMakr.png"
+        width="150px" alt="logo">
+        <h3 class="text-center my-2">Witaj w grupie <span class="group_name">{{roomName}}</span></h3>
+    </div>
+    <div class="text-end mb-3">
+        <button (click)="leaveChat()" class="btn btn-secondary ">Opuść pokój</button>
+    </div>
+    <div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch">
+            <div class="recent_heading mt-1">
+              <h4>Aktywni członkowie</h4>
+            </div>
+            <div class="srch_bar">
+              <div class="stylish-input-group">
+                <input (keydown.enter)="searchUsers()" [(ngModel)]="searchPhrase" type="text" class="search-bar" placeholder="Szukaj">
+                <span class="input-group-addon">
+                  <button (click)="searchUsers()" type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="inbox_chat">
+            <ng-container *ngFor="let user of this.filteredUsers()">
+              <div class="chat_list">
+                <div class="chat_people">
+                  <div class="chat_img"> <img src="https://cdn.pixabay.com/photo/2012/04/18/18/07/user-37448_1280.png" alt="sunil"> </div>
+                  <div class="chat_ib mt-3">
+                    <h5>{{user}} <span class="online"></span></h5>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="mesgs">
+          <div #scrollMe class="msg_history">
+            <ng-container *ngFor="let message of this.chatService.messages$ | async">
+              <div
+                [ngClass]="{'incoming_msg': message.user != loggedInUserName, 'outgoing_msg': message.user === loggedInUserName}">
+                <div *ngIf="message.user != loggedInUserName" class="incoming_msg_img">
+                  <img src="https://cdn.pixabay.com/photo/2012/04/18/18/07/user-37448_1280.png">
+                </div>
+                <div *ngIf="message.user != loggedInUserName" class="received_msg">
+                  <div class="received_withd_msg">
+                    <p> {{message.message}}</p>
+                    <span class="time_date"> <b class="sender_info">{{message.user}}</b> | {{message.messageTime | date: 'medium'}}</span>
+                  </div>
+                </div>
+                <div *ngIf="message.user === loggedInUserName" class="sent_msg">
+                  <p>{{message.message}}</p>
+                  <span class="time_date"><b class="sender_info">{{message.user}}</b> | {{message.messageTime | date: 'medium'}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="type_msg">
+            <div class="input_msg_write">
+              <input (keydown.enter)="sendMessage()" [(ngModel)]="inputMessage" type="text" class="write_msg"
+                placeholder="Wyślij wiadomość" />
+              <button (click)="sendMessage()" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o"
+                  aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+  </div>

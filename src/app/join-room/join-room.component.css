@@ -1,0 +1,15 @@
+.form-control{
+    border: 1px solid var(--color-text-light);
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: #ffffff;
+    color: var(--color-text-dark);
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+  }
+  
+  .form-control:focus{
+    border-color: var(--color-primary);
+    box-shadow: 0 0 4px var(--color-primary);
+  }

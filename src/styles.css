@@ -1,1 +1,113 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Styles */
+:root {
+    --color-base: #FAF3E0;
+    --color-primary: #8C7051;
+    --color-secondary: #D4B78F;
+    --color-accent: #B85C38;
+  
+    --color-text-dark: #4E4B40;
+    --color-text-medium: #807A6C;
+    --color-text-light: #C8C1AF;
+  
+    --color-success: #6B8E23;
+    --color-warning: #F5B642;
+    --color-error: #D9534F;
+
+    --color-secondary-background: #D8E1E9;
+    --color-global-white:  #FCFBF9;
+  
+    --gradient-background: linear-gradient(to bottom, #FAF3E0, #FFF9F0);
+    --gradient-hover: linear-gradient(to right, #8C7051, #B48E70);
+  }
+  
+  /* Body Styling */
+  body {
+    background-color: var(--color-base);
+    color: var(--color-text-dark);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Links */
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: var(--color-accent);
+  }
+  
+  /* Buttons */
+  button {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: var(--gradient-hover);
+  }
+  
+  button.secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-text-dark);
+  }
+  
+  button.secondary:hover {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
+  
+  /* Forms */
+  input, textarea, select {
+    border: 1px solid var(--color-text-light);
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: #ffffff;
+    color: var(--color-text-dark);
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 4px var(--color-primary);
+  }
+  
+  /* Card Components */
+  .card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  /* Alerts */
+  .alert-success {
+    background-color: var(--color-success);
+    color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .alert-warning {
+    background-color: var(--color-warning);
+    color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .alert-error {
+    background-color: var(--color-error);
+    color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
