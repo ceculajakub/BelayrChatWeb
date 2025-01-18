@@ -26,6 +26,15 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.chatService.messages$.subscribe((res) => (this.messages = res));
+    this.chatService.connectedUsers$.subscribe((users) => {
+      this.filteredUsers.set(
+        this.searchPhrase
+          ? users.filter((user) =>
+              user.toLowerCase().includes(this.searchPhrase.toLowerCase())
+            )
+          : users
+      );
+    });
     console.log(this.messages);
   }
 
@@ -50,6 +59,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.chatService
       .LeaveChat()
       .then(() => {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('room');
         this.router.navigate(['welcome']);
       })
       .catch((err) => {

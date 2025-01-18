@@ -12,21 +12,35 @@ export class ChatService {
   private chatUrl: string = "http://localhost:5000/chat";
   public messages$ = new BehaviorSubject<any>([]);
   public connectedUsers$ = new BehaviorSubject<string[]>([]);
-  public messages: any[] = [];
-  public users: string[] = [];
+  public username: string | null = null;
+  public roomName: string | null = null;
 
   constructor() {
     this.initializeConnection();
     this.start();
-    this.on(
+    this.registerEventHandlers();
+  }
+
+  private registerEventHandlers() {
+    this.connection.on(
       'ReceiveMessage',
       (user: string, message: string, messageTime: string) => {
-        this.messages = [...this.messages, {user, message, messageTime}];
-        this.messages$.next(this.messages);
+        const newMessage = { user, message, messageTime };
+        this.messages$.next([...this.messages$.value, newMessage]);
       }
     );
-    this.on('ConnectedUser', (users: any) => {
+
+    this.connection.on('ConnectedUser', (users: string[]) => {
       this.connectedUsers$.next(users);
+    });
+
+    this.connection.on('UserJoined', (user: string) => {
+      const updatedUsers = [...this.connectedUsers$.value, user];
+      this.connectedUsers$.next(updatedUsers);
+    });
+    this.connection.on('UserLeft', (user: string) => {
+      const updatedUsers = this.connectedUsers$.value.filter((u) => u !== user);
+      this.connectedUsers$.next(updatedUsers);
     });
   }
 
